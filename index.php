@@ -22,7 +22,7 @@
         <div class="p-3 d-flex align-items-center justify-content-center">
             <h5>Formulaire</h5>
         </div>
-        <form method="POST" action="form.php" enctype="multipart/form-data" class="p-3 px-4 py-2"> 
+        <form id='form' method="POST" action="form.php" enctype="multipart/form-data" class="p-3 px-4 py-2"> 
             <span  class="font-weight-normal quote">Your Name</span> 
             <input id="mail-name" type="text" class="form-control mb-2" placeholder="your name" /> 
             <span class="font-weight-normal quote">Mail</span> 
@@ -43,33 +43,40 @@
 <script>
 
    $(document).ready(function (){
-   $('form').submit( function(e){
+   $('#form').submit( function(e){
    e.preventDefault();
    let name=$('#mail-name').val();
    let  email=$('#mail-email').val();
    let img=$('#mail-file')[0].files;
    let submit=$('#mail-submit').val();
+   //let fileI = $('#mail-file').val();
 
 
-   //check image if selected or not 
    if (img.length>0){
-    let form_data= new FormData(img[0].name);
+    let temp = document.getElementById('mail-file');
+;
 
-  //let data= form_data.append('myImage',img[0].name);
-   console.log(form_data);
+ let form_data= new FormData();
+  for (const file of temp.files){
+    form_data.append('myImage[]',file);
+
+  }
+  console.log(...form_data);
+
    //write ajax 
    $.ajax({
+    url:"form.php",
        type:"POST",
-       contentType: false,
-       processData:false,
-       url:"form.php",
-       data:{
-         
-           data
-       },
-    //   dataType: "json",
+       data:{...form_data},
+      // dataType: 'formData',
+          contentType: false,
+            processData: false,
+            //dataType: 'json',
+
        success:function(res){   
-      console.log(res);
+    //  console.log(res);
+
+      alert('response',form_data);
        }
 
 
@@ -81,7 +88,7 @@
  
    })}else{
     
-     //echo ("Please select an image !");
+     alert("Please select an image !");
      }
   })
   } )
