@@ -41,8 +41,8 @@ echo "ok ";
 
 
 
-// $sql="insert into users (name,email,file) values ('$userName','$userEmail','$userFile')";
-//     mysqli_query($conn,$sql);
+$sql="insert into users (name,email,file) values ('$userName','$userEmail','$userFile')";
+    mysqli_query($conn,$sql);
     //header('Location:index.php?success=form');
 
 

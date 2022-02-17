@@ -63,3 +63,7 @@ body {
   height: 46px;
   font-size: 14px;
 }
+.gallery img {
+  width: 400px;
+  height: 400px;
+}
